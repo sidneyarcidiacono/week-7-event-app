@@ -1,0 +1,24 @@
+{
+  "name": "events-week-5",
+  "version": "1.0.0",
+  "description": "A simple events app for FDIS 2020",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flask-django-independent-study/week-5-events-app.git"
+  },
+  "keywords": [
+    "Flask",
+    "Javascript",
+    "Axios"
+  ],
+  "author": "Sid Arcidiacono",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flask-django-independent-study/week-5-events-app/issues"
+  },
+  "homepage": "https://github.com/flask-django-independent-study/week-5-events-app#readme"
+}
