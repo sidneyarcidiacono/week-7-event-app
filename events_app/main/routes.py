@@ -1,14 +1,21 @@
 """Import packages and modules."""
 import os
 import requests
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import (
+    Blueprint,
+    request,
+    render_template,
+    redirect,
+    url_for,
+    jsonify,
+)
 from datetime import date, datetime
 from pprint import PrettyPrinter
 from events_app.main.utils import get_holiday_data
 from events_app.models import Event, Guest
 
 # Import app and db from events_app package so that we can run app
-from events_app import app, db
+from events_app import db
 
 main = Blueprint("main", __name__)
 
@@ -41,10 +48,32 @@ def homepage():
     """
     Return template for home.
 
-    Show upcoming events to users!
+    This is the single HTML page we need to serve from
+    our back end.
+    """
+    return render_template("index.html")
+
+
+@main.route("/events")
+def show_events():
+    """
+    Return all events from database.
+
+    Our front end will use this to display these
+    to users.
     """
     events = Event.query.all()
-    return render_template("index.html", events=events)
+    data = [
+        {
+            "name": event.title,
+            "description": event.description,
+            "date": event.date.strftime("%M-%d-%Y"),
+            "time": event.time.strftime("%H:%M"),
+        }
+        for event in events
+    ]
+    print(f"data: {data}")
+    return jsonify({"data": data})
 
 
 @main.route("/add-event", methods=["POST"])

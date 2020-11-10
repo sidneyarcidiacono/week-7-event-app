@@ -2,9 +2,7 @@
 
 {% block content %}
 <main>
-  {% if events %}
-    {% for event in events %}
-      <h2>RSVP to {{ event.title }}</h2>
+      <h2>RSVP to dummy event title</h2>
         <form action="/guests" method="POST">
           <label for="name">Guest Name</label>
           <input type="text" name="name" id="name" required />
@@ -17,10 +15,7 @@
           <input type="hidden" name="event_id" value="{{ event.id }}">
           <input type="submit" />
         </form>
-    {% endfor %}
-  {% else %}
     <h3>No events to RSVP to right now!</h3>
-  {% endif %}
 </main>
 
 {% endblock %}

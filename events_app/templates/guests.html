@@ -3,15 +3,9 @@
 {% block content %}
 
 <h1>Events List</h1>
-{% if events %}
-  {% for event in events %}
-    <h3>{{ event.title }}</h3>
-    {% for guest in event.guests %}
-      <p>{{ guest.name }} is bringing {{ guest.plus_one }}</p>
-    {% endfor %}
-  {% endfor %}
-{% else %}
-  <h3>No guests yet!</h3>
-{% endif %}
+    <h3>Dummy Event Title</h3>
+      <p>Dummy guest name is bringing dummy guest plus one name</p>
+
+  <!-- <h3>No guests yet!</h3> -->
 
 {% endblock %}
