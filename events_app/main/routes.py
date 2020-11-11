@@ -164,7 +164,7 @@ def about_page():
 
     holidays = get_holiday_data(result_json)
 
-    return jsonify({"data": {"holidays": holidays, "month": month_name}})
+    return jsonify({"data": {"holidays": holidays, "month": month_name}}), 200
 
 
 @main.route("/guests", methods=["GET", "POST"])
@@ -175,8 +175,17 @@ def show_guests():
     Add guests to RSVP list if method is POST.
     """
     events = Event.query.all()
+    data = [
+        {
+            "name": event.title,
+            "description": event.description,
+            "date": event.date.strftime("%M-%d-%Y"),
+            "time": event.time.strftime("%H:%M"),
+        }
+        for event in events
+    ]
     if request.method == "GET":
-        return render_template("guests.html", events=events)
+        return jsonify({"data": data}), 200
     elif request.method == "POST":
         name = request.form.get("name")
         email = request.form.get("email")
@@ -201,11 +210,20 @@ def show_guests():
         db.session.add(guest)
         db.session.commit()
 
-        return render_template("guests.html", events=events)
+        return jsonify({"msg": "new guest added.", "data": data})
 
 
 @main.route("/rsvp")
 def rsvp_guest():
     """Show form for guests to RSVP for events."""
     events = Event.query.all()
-    return render_template("rsvp.html", events=events)
+    data = [
+        {
+            "name": event.title,
+            "description": event.description,
+            "date": event.date.strftime("%M-%d-%Y"),
+            "time": event.time.strftime("%H:%M"),
+        }
+        for event in events
+    ]
+    return jsonify({"data": data}), 200
