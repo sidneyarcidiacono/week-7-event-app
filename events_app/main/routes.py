@@ -72,8 +72,7 @@ def show_events():
         }
         for event in events
     ]
-    print(f"data: {data}")
-    return jsonify({"data": data})
+    return jsonify({"data": data}), 200
 
 
 @main.route("/add-event", methods=["POST"])
@@ -97,9 +96,19 @@ def add_event():
 
         db.session.add(event)
         db.session.commit()
-        return redirect(url_for("main.homepage"))
+        return (
+            jsonify({"msg": "Event added successfully", "data": event}),
+            200,
+        )
     except ValueError:
-        return redirect(url_for("main.homepage"))
+        return jsonify(
+            {
+                "msg": """
+                Something went wrong, please verify that you've entered
+                everything in the correct format and try again.
+                """
+            }
+        )
 
 
 @main.route("/delete-event/<event_id>", methods=["POST"])
@@ -112,7 +121,7 @@ def delete_event(event_id):
     event = Event.query.filter_by(id=event_id).first()
     db.session.delete(event)
     db.session.commit()
-    return redirect(url_for("main.homepage"))
+    return jsonify({"msg": "Successfully deleted."}), 200
 
 
 @main.route("/edit-event/<event_id>", methods=["POST"])
@@ -131,7 +140,7 @@ def edit_event(event_id):
     event.time = new_event_time
 
     db.session.commit()
-    return redirect(url_for("main.homepage"))
+    return jsonify({"msg": "Updated successfully.", "data": event}), 200
 
 
 @main.route("/holidays")
@@ -155,9 +164,7 @@ def about_page():
 
     holidays = get_holiday_data(result_json)
 
-    context = {"holidays": holidays, "month": month_name}
-
-    return render_template("about.html", **context)
+    return jsonify({"data": {"holidays": holidays, "month": month_name}})
 
 
 @main.route("/guests", methods=["GET", "POST"])
