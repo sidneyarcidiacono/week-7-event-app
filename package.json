@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/flask-django-independent-study/week-5-events-app/issues"
   },
-  "homepage": "https://github.com/flask-django-independent-study/week-5-events-app#readme"
+  "homepage": "https://github.com/flask-django-independent-study/week-5-events-app#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3"
+  }
 }

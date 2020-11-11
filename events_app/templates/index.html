@@ -2,6 +2,8 @@
 
 {% block head %}
 <script type="text/javascript" src="{{ url_for('static', filename='/js/home.js') }}" defer></script>
+
+</script>
 {% endblock %}
 
 {% block content %}
@@ -21,8 +23,8 @@
     <form class="wrapper" action="/delete-event/eventid" method="POST">
       <button type="submit" name="delete-event-btn">Delete</button>
     </form>
-
     <button type="button" id="start-edit-event">Edit</button>
+
     <div class="invisible" id="edit-event-form">
       <form class="wrapper" action="/edit-event/eventid" method="POST">
         <input type="text" name="title" value="">
